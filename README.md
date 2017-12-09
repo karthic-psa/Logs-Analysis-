@@ -32,17 +32,17 @@ This shows one of the valuable roles of a database server in a real-world applic
 4. Create the required VIEWS.
 -> Use the following SQL Queries to create the required VIEWS: 
 
-	```CREATE VIEW authorarticles AS SELECT art.title, art.slug, aut.name FROM articles art, authors aut WHERE aut.id=art.authors ORDER BY aut.name;``` 
+	```CREATE VIEW authorarticles AS SELECT art.title, art.slug, aut.name FROM articles art, authors aut WHERE aut.id=art.authors ORDER BY aut.name; 
 
-	```CREATE VIEW noofviewsmain AS SELECT path, status, COUNT(*) AS views FROM log GROUP BY path, status HAVING status = '200 OK' ORDER BY views;```
+	CREATE VIEW noofviewsmain AS SELECT path, status, COUNT(*) AS views FROM log GROUP BY path, status HAVING status = '200 OK' ORDER BY views;
 
-	```CREATE VIEW viewsofarticlesmain AS SELECT authorarticles.name, authorarticles.title, noofviewsmain.views FROM authorarticles, noofviewsmain 
-	WHERE noofviewsmain.path = CONCAT('/article/', authorarticles.slug) ORDER BY authorarticles.name;```
+	CREATE VIEW viewsofarticlesmain AS SELECT authorarticles.name, authorarticles.title, noofviewsmain.views FROM authorarticles, noofviewsmain 
+	WHERE noofviewsmain.path = CONCAT('/article/', authorarticles.slug) ORDER BY authorarticles.name;
 
-	```CREATE VIEW noofrequests AS SELECT count(*) AS totalreq, date(TIME) AS dates FROM log GROUP BY dates ORDER BY totalreq DESC;```
+	CREATE VIEW noofrequests AS SELECT count(*) AS totalreq, date(TIME) AS dates FROM log GROUP BY dates ORDER BY totalreq DESC;
 
-	```CREATE VIEW nooferrors AS SELECT count(*) AS totalerr, date(TIME) AS dates FROM log WHERE status='404 NOT FOUND' GROUP BY dates ORDER BY totalerr DESC;```
+	CREATE VIEW nooferrors AS SELECT count(*) AS totalerr, date(TIME) AS dates FROM log WHERE status='404 NOT FOUND' GROUP BY dates ORDER BY totalerr DESC;```
 
-	```CREATE VIEW errorpercent AS SELECT noofrequests.dates, round((100.0*nooferrors.totalerr)/noofrequests.totalreq,2) AS percentage_error FROM nooferrors, noofrequests WHERE nooferrors.dates=noofrequests.dates;```
+	CREATE VIEW errorpercent AS SELECT noofrequests.dates, round((100.0*nooferrors.totalerr)/noofrequests.totalreq,2) AS percentage_error FROM nooferrors, noofrequests WHERE nooferrors.dates=noofrequests.dates;```
 
 5. Run the command ```python logAnalysis.py``` in the vagrant command line.
