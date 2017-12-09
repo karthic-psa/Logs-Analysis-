@@ -43,6 +43,6 @@ This shows one of the valuable roles of a database server in a real-world applic
 
 	CREATE VIEW nooferrors AS SELECT count(*) AS totalerr, date(TIME) AS dates FROM log WHERE status='404 NOT FOUND' GROUP BY dates ORDER BY totalerr DESC;```
 
-	CREATE VIEW errorpercent AS SELECT noofrequests.dates, round((100.0*nooferrors.totalerr)/noofrequests.totalreq,2) AS percentage_error FROM nooferrors, noofrequests WHERE nooferrors.dates=noofrequests.dates;```
+	CREATE VIEW errorpercent AS SELECT noofrequests.dates, round((100.0*nooferrors.totalerr)/noofrequests.totalreq,2) AS percentage_error FROM nooferrors, noofrequests WHERE nooferrors.dates=noofrequests.dates;
 
 5. Run the command ```python logAnalysis.py``` in the vagrant command line.
